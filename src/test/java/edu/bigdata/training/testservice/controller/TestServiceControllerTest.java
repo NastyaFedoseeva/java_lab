@@ -95,6 +95,7 @@ public class TestServiceControllerTest {
 
         Assert.assertEquals("newNAme", responseObject.get("name"));
         Assert.assertEquals(personEntity.getId().toString(), responseObject.get("id"));
+        Assert.assertEquals("newNAme", entityUtils.getPersonEntity(personEntity.getId().toString()).getName());
     }
 
     @Test

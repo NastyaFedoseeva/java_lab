@@ -61,9 +61,7 @@ public class TestBusinessLogicServiceTest {
 
     @Test
     public void testUpdate(){
-        Person person = new Person("test");
-        PersonEntity personEntity = testBusinessLogicService.processCreate(person);
-        PersonEntity updatedPerson = testBusinessLogicService.processUpdate(personEntity.getId().toString(), "testUpdate");
+        PersonEntity updatedPerson = testBusinessLogicService.processUpdate(UUID.randomUUID().toString(), "testUpdate");
 
         Assert.assertEquals("testUpdate", updatedPerson.getName());
         Mockito.verify(testServiceRepository, Mockito.times(1)).update(any());
@@ -71,13 +69,9 @@ public class TestBusinessLogicServiceTest {
 
     @Test
     public void testDelete(){
-        Person person = new Person("test");
+        testBusinessLogicService.processDelete(UUID.randomUUID().toString());
 
-        PersonEntity personEntity = testBusinessLogicService.processCreate(person);
-
-        testBusinessLogicService.processDelete(personEntity.getId().toString());
-
-        Mockito.verify(testServiceRepository, Mockito.times(1)).delete(personEntity.getId());
+        Mockito.verify(testServiceRepository, Mockito.times(1)).delete(any());
     }
 
 

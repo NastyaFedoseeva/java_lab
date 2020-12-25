@@ -15,9 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -33,47 +32,23 @@ public class TestBusinessLogicServiceTest {
     private TestServiceRepository testServiceRepository;
 
     @Test
-    public void testCreate(){
+    public void testCreateAndGet(){
+        //create
         Person person = new Person("test");
 
         PersonEntity personEntity = testBusinessLogicService.processCreate(person);
 
         Assert.assertEquals(person.getName(), personEntity.getName());
         Mockito.verify(testServiceRepository, Mockito.times(1)).save(personEntity);
-    }
 
-    @Test
-    public void testGetAll(){
+        //getAll
         List<PersonEntity> personEntityList = testBusinessLogicService.processGetAll();
 
         Assert.assertEquals("name1", personEntityList.get(0).getName());
         Assert.assertEquals("name2", personEntityList.get(1).getName());
         Mockito.verify(testServiceRepository, Mockito.times(1)).getAll();
+
     }
-
-    @Test
-    public void testGet(){
-        PersonEntity personEntity = testBusinessLogicService.processGet(UUID.randomUUID().toString());
-
-        Assert.assertEquals("name", personEntity.getName());
-        Mockito.verify(testServiceRepository, Mockito.times(1)).get(any());
-    }
-
-    @Test
-    public void testUpdate(){
-        PersonEntity updatedPerson = testBusinessLogicService.processUpdate(UUID.randomUUID().toString(), "testUpdate");
-
-        Assert.assertEquals("testUpdate", updatedPerson.getName());
-        Mockito.verify(testServiceRepository, Mockito.times(1)).update(any());
-    }
-
-    @Test
-    public void testDelete(){
-        testBusinessLogicService.processDelete(UUID.randomUUID().toString());
-
-        Mockito.verify(testServiceRepository, Mockito.times(1)).delete(any());
-    }
-
 
     @Configuration
     static class TestBusinessLogicServiceTestConfiguration {

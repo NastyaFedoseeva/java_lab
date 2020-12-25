@@ -11,6 +11,10 @@ public class PersonEntity {
         this.id = UUID.randomUUID();
         this.name = name;
     }
+    public PersonEntity(String name, String id) {
+        this.id = UUID.fromString(id);
+        this.name = name;
+    }
 
     public UUID getId() {
         return id;

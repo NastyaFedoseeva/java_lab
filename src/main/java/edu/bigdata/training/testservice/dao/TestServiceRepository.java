@@ -24,6 +24,15 @@ public class TestServiceRepository {
         ignite.getOrCreateCache(personCacheConfiguration).put(personEntity.getId(), personEntity);
     }
 
+    public void update(PersonEntity personEntity){
+        ignite.getOrCreateCache(personCacheConfiguration).remove(personEntity.getId());
+        save(personEntity);
+    }
+
+    public void delete(UUID id){
+        ignite.getOrCreateCache(personCacheConfiguration).remove(id);
+    }
+
     public PersonEntity get(UUID id){
         return ignite.getOrCreateCache(personCacheConfiguration).get(id);
     }

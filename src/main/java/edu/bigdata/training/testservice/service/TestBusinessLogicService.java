@@ -20,6 +20,14 @@ public class TestBusinessLogicService {
         testServiceRepository.save(personEntity);
         return personEntity;
     }
+    public PersonEntity processUpdate(String id, String newName){
+        PersonEntity personEntity = new PersonEntity(newName, id);
+        testServiceRepository.update(personEntity);
+        return personEntity;
+    }
+    public void processDelete(String id){
+        testServiceRepository.delete(UUID.fromString(id));
+    }
 
     public PersonEntity processGet(String id){
         return testServiceRepository.get(UUID.fromString(id));
